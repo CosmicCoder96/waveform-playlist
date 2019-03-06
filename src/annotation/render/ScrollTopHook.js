@@ -1,16 +1,21 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /*
 * virtual-dom hook for scrolling to the text annotation.
 */
-const Hook = function ScrollTopHook() {};
+var Hook = function ScrollTopHook() {};
 Hook.prototype.hook = function hook(node) {
-  const el = node.querySelector('.current');
+  var el = node.querySelector('.current');
   if (el) {
-    const box = node.getBoundingClientRect();
-    const row = el.getBoundingClientRect();
-    const diff = row.top - box.top;
-    const list = node;
-    list.scrollTop += diff;
+    var box = node.getBoundingClientRect();
+    var row = el.getBoundingClientRect();
+    var diff = row.top - box.top;
+    var list = node;
+    list.scrollTop += (diff/100);
   }
 };
 
-export default Hook;
+exports.default = Hook;
