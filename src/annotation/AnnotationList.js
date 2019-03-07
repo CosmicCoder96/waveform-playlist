@@ -246,10 +246,14 @@ var AnnotationList = function () {
           }
         }, [_this4.renderResizeLeft(i), (0, _h2.default)('span.id', {
           onclick: function onclick() {
+            _this4.playlist.ee.emit('select', _this4.annotations[i].start, _this4.annotations[i].start);
+
             if (_this4.playlist.isContinuousPlay) {
               _this4.playlist.ee.emit('play', _this4.annotations[i].start);
             } else {
+
               _this4.playlist.ee.emit('play', _this4.annotations[i].start, _this4.annotations[i].end);
+
             }
           }
         }, [note.id]), _this4.renderResizeRight(i)]);
@@ -282,7 +286,7 @@ var AnnotationList = function () {
             // eslint-disable-next-line no-param-reassign
             // note.lines = [e.target.innerHTML];
             note.htmlLines = [e.target.innerHTML]
-//             console.log(e.target.innerHTML);
+            // console.log(e.target.innerHTML);
           },
           onkeypress: function onkeypress(e) {
             if (e.which === 13 || e.keyCode === 13) {
