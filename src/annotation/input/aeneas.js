@@ -1,25 +1,25 @@
-/*
-{
-  "begin": "5.759",
-  "end": "9.155",
-  "id": "002",
-  "language": "en",
-  "lines": [
-    "I just wanted to hold"
-  ]
-},
- */
+'use strict';
 
-import uuid from 'uuid';
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-export default function (aeneas) {
-  const annotation = {
-    id: aeneas.id || uuid.v4(),
+exports.default = function (aeneas) {
+  // console.log(aeneas);
+  var annotation = {
+    id: aeneas.id || _uuid2.default.v4(),
     start: Number(aeneas.begin) || 0,
     end: Number(aeneas.end) || 0,
     lines: aeneas.lines || [''],
     lang: aeneas.language || 'en',
+    speaker: aeneas.speaker || ''
   };
 
   return annotation;
-}
+};
+
+var _uuid = require('uuid');
+
+var _uuid2 = _interopRequireDefault(_uuid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
