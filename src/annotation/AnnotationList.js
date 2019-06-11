@@ -101,22 +101,37 @@ class AnnotationList {
       this.playlist.linkEndpoints = val;
     });
 
-    ee.on('annotationsrequest', () => {
-      this.export();
+    ee.on('annotationsrequest', (host, transcription) => {
+      this.export(host, transcription);
     });
 
     return ee;
   }
 
-  export() {
-    const output = this.annotations.map(a => outputAeneas(a));
+  export(host, transcription) {
+    const bannotations = this.annotations;
+    let annotationSpeakerHTML = document.getElementsByClassName('annotation-speaker');
+    const output = this.annotations.map((a, index) => {
+      a.speaker = annotationSpeakerHTML[index].innerHTML;
+      if(a.htmlLines) {
+        a.lines = a.htmlLines;
+      }
+      return outputAeneas(a);
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", `${host}/convert/json-xml`, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      content: output,
+      transcriptionId: transcription
+    }));
     const dataStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(output))}`;
     const a = document.createElement('a');
 
     document.body.appendChild(a);
     a.href = dataStr;
     a.download = 'annotations.json';
-    a.click();
+    // a.click();
     document.body.removeChild(a);
   }
 
@@ -196,6 +211,7 @@ class AnnotationList {
             h('span.id',
               {
                 onclick: () => {
+                  this.playlist.ee.emit('select', this.annotations[i].start, this.annotations[i].start);
                   if (this.playlist.isContinuousPlay) {
                     this.playlist.ee.emit('play', this.annotations[i].start);
                   } else {
@@ -248,7 +264,8 @@ class AnnotationList {
           oninput: (e) => {
             // needed currently for references
             // eslint-disable-next-line no-param-reassign
-            note.lines = [e.target.innerText];
+            // note.lines = [e.target.innerText];
+            note.htmlLines = [e.target.innerHTML]
           },
           onkeypress: (e) => {
             if (e.which === 13 || e.keyCode === 13) {
@@ -264,6 +281,9 @@ class AnnotationList {
           [
             h('span.annotation-id', [
               note.id,
+            ]),
+            h('span.annotation-speaker', [
+                note.speaker
             ]),
             h('span.annotation-start', [
               start,
