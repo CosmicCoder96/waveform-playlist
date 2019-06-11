@@ -17,5 +17,6 @@ export default function (annotation) {
     id: String(annotation.id),
     language: annotation.lang,
     lines: annotation.lines,
+    speaker: annotation.speaker
   };
 }

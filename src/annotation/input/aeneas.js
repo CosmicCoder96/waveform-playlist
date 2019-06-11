@@ -19,6 +19,7 @@ export default function (aeneas) {
     end: Number(aeneas.end) || 0,
     lines: aeneas.lines || [''],
     lang: aeneas.language || 'en',
+    speaker: aeneas.speaker || ''
   };
 
   return annotation;

@@ -9,7 +9,7 @@ Hook.prototype.hook = function hook(node) {
     const row = el.getBoundingClientRect();
     const diff = row.top - box.top;
     const list = node;
-    list.scrollTop += diff;
+    list.scrollTop += (diff/100);
   }
 };
 
