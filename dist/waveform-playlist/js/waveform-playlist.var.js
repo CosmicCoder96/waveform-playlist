@@ -8078,6 +8078,7 @@ var WaveformPlaylist =
 	      var output = this.annotations.map(function (a, index) {
 	        a.speaker = annotationSpeakerHTML[index].innerHTML;
 	        if (a.htmlLines) {
+	          a.htmlLines = [a.target.innerHTML];
 	          a.lines = a.htmlLines;
 	        }
 	        return (0, _aeneas4.default)(a);
@@ -8213,6 +8214,7 @@ var WaveformPlaylist =
 	            // eslint-disable-next-line no-param-reassign
 	            // note.lines = [e.target.innerText];
 	            note.htmlLines = [e.target.innerHTML];
+	            note.target = e.target;
 	          },
 	          onkeypress: function onkeypress(e) {
 	            if (e.which === 13 || e.keyCode === 13) {
