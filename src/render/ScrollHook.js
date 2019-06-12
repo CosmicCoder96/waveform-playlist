@@ -14,11 +14,14 @@ export default class {
       const el = node;
 
       if (playlist.isAutomaticScroll) {
-        const rect = node.getBoundingClientRect();
-        const cursorRect = node.querySelector('.cursor').getBoundingClientRect();
-
-        if (cursorRect.right > rect.right || cursorRect.right < 0) {
-          playlist.scrollLeft = playlist.playbackSeconds;
+        try {
+          const rect = node.getBoundingClientRect();
+          const cursorRect = node.querySelector('.cursor').getBoundingClientRect();
+          if (cursorRect.right > rect.right || cursorRect.right < 0) {
+            playlist.scrollLeft = playlist.playbackSeconds;
+          }
+        } catch (e) {
+          return;
         }
       }
 
