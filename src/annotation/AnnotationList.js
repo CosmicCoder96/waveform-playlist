@@ -114,6 +114,7 @@ class AnnotationList {
     const output = this.annotations.map((a, index) => {
       a.speaker = annotationSpeakerHTML[index].innerHTML;
       if(a.htmlLines) {
+        a.htmlLines = [a.target.innerHTML];
         a.lines = a.htmlLines;
       }
       return outputAeneas(a);
@@ -265,7 +266,8 @@ class AnnotationList {
             // needed currently for references
             // eslint-disable-next-line no-param-reassign
             // note.lines = [e.target.innerText];
-            note.htmlLines = [e.target.innerHTML]
+            note.htmlLines = [e.target.innerHTML];
+            note.target = e.target;
           },
           onkeypress: (e) => {
             if (e.which === 13 || e.keyCode === 13) {
