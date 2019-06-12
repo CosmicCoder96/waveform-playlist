@@ -5158,11 +5158,14 @@ var WaveformPlaylist =
 	        var el = node;
 	
 	        if (playlist.isAutomaticScroll) {
-	          var rect = node.getBoundingClientRect();
-	          var cursorRect = node.querySelector('.cursor').getBoundingClientRect();
-	
-	          if (cursorRect.right > rect.right || cursorRect.right < 0) {
-	            playlist.scrollLeft = playlist.playbackSeconds;
+	          try {
+	            var rect = node.getBoundingClientRect();
+	            var cursorRect = node.querySelector('.cursor').getBoundingClientRect();
+	            if (cursorRect.right > rect.right || cursorRect.right < 0) {
+	              playlist.scrollLeft = playlist.playbackSeconds;
+	            }
+	          } catch (e) {
+	            return;
 	          }
 	        }
 	
